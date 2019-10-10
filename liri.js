@@ -10,7 +10,18 @@ var userInput = process.argv[3];
 function concert(userInput){
     axios.get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp").then(
         function(response) {
-          console.log(response.data);
+        if(response.data.length <= 0){
+            console.log("this band does not have any upcoming concerts. Please try again later.")
+        }else{
+        console.log("You want to see " + userInput + " live in concert")
+          for(var i = 0; i < response.data.length; i++){
+              console.log("=============");
+              console.log(i);
+              console.log("The venue is " + response.data[i].venue.name);
+              console.log(response.data[i].venue.name+ " is located in " + response.data[i].venue.city + ", " + response.data[i].venue.region + ", " + response.data[i].venue.country);
+              console.log("This concert will be help on " + response.data[i].datetime);            
+            };
+        };
         })
         .catch(function(error) {
           if (error.response) {
