@@ -22,6 +22,15 @@ function concert(userInput){
               console.log("This concert will be held on " + response.data[i].datetime);            
             };
         };
+
+        fs.appendFile("log.txt", "Command Line used:  " + command +" " + userInput + ". ", function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Artist added to log.txt!");
+            };
+          });
         })
         .catch(function(error) {
           if (error.response) {
@@ -55,6 +64,14 @@ function movie(userInput){
             console.log("This movie was produced in " + response.data.Country + " in " + response.data.Language);
             console.log("The Plost of the movie is: " + response.data.Plot);
             console.log("This movie stars: " + response.data.Actors);
+            fs.appendFile("log.txt", "Command Line used:  " + command +" " + userInput + ". ", function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Movie added to log.txt!");
+                };
+              });
         })
         .catch(function(error) {
           if (error.response) {
