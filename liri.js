@@ -19,7 +19,7 @@ function concert(userInput){
               console.log(i);
               console.log("The venue is " + response.data[i].venue.name);
               console.log(response.data[i].venue.name+ " is located in " + response.data[i].venue.city + ", " + response.data[i].venue.region + ", " + response.data[i].venue.country);
-              console.log("This concert will be help on " + response.data[i].datetime);            
+              console.log("This concert will be held on " + response.data[i].datetime);            
             };
         };
         })
@@ -43,9 +43,46 @@ function concert(userInput){
           }
           console.log(error.config);
         });
-}
+};
+
+function movie(userInput){
+    axios.get("http://www.omdbapi.com/?apikey=trilogy&t=" + userInput).then(
+        function(response) {
+            console.log("The title of the movie is " + response.data.Title + "(" + response.data.Year + ")");
+            for(var i = 0; i < 2; i++){
+                console.log(response.data.Ratings[i].Source + ": " + response.data.Ratings[i].Value);
+            };
+            console.log("This movie was produced in " + response.data.Country + " in " + response.data.Language);
+            console.log("The Plost of the movie is: " + response.data.Plot);
+            console.log("This movie stars: " + response.data.Actors);
+        })
+        .catch(function(error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log("---------------Data---------------");
+            console.log(error.response.data);
+            console.log("---------------Status---------------");
+            console.log(error.response.status);
+            console.log("---------------Status---------------");
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+
+};
+
 if(command === 'concert-this'){
     concert(userInput);
+}else if(command === 'movie-this'){
+    movie(userInput);
 }else{
-    console.log("not a command");
+    console.log("not a command.")
 };
